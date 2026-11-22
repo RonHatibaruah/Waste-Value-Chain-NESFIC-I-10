@@ -1,0 +1,21 @@
+{
+  "name": "waste-value-chain-nesfic-i-10",
+  "version": "1.0.0",
+  "description": "Creating Real-Time Intelligence Across Assam's Waste Value Chain (NESFIC-I-10)",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": [
+    "nesfic-2026",
+    "assam-startup",
+    "waste-management",
+    "circular-economy",
+    "iot-weighbridge",
+    "gis-routing",
+    "pride-cooperative"
+  ],
+  "author": "RonHatibaruah",
+  "license": "MIT"
+}

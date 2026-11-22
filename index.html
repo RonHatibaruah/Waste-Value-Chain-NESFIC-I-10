@@ -31,7 +31,7 @@
 <body class="bg-slate-950 text-slate-100 flex flex-col min-h-screen">
 
   <!-- TOP HEADER -->
-  <header class="bg-slate-900 border-b border-slate-800 sticky top-0 z-50">
+  <header class="bg-slate-900 border-b border-slate-800 sticky top-0 z-50 shadow-md">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex items-center justify-between h-16">
         <!-- Logo / Brand -->
@@ -50,20 +50,20 @@
         </div>
 
         <!-- Telemetry Status Pills -->
-        <div class="hidden md:flex items-center space-x-4">
-          <div class="flex items-center space-x-2 px-3 py-1 rounded-lg bg-slate-800 border border-slate-700/70 text-xs">
-            <span class="pulse-badge"></span>
-            <span class="text-slate-300 font-medium">IoT Weighbridge: <strong class="text-emerald-400">Online</strong></span>
+        <div class="hidden md:flex items-center space-x-3">
+          <div class="flex items-center space-x-2 px-2.5 py-1 rounded-lg bg-slate-800 border border-slate-700/70 text-xs">
+            <span class="pulse-badge" id="sse-badge"></span>
+            <span class="text-slate-300 font-medium">IoT Weighbridge: <strong class="text-emerald-400" id="sse-status">Online (SSE 3s)</strong></span>
             <span class="text-slate-500">|</span>
-            <span class="text-slate-300 font-mono text-[11px]">RS-232 9600 8N1</span>
+            <span class="text-slate-400 font-mono text-[11px]">RS-232 9600 8N1</span>
           </div>
-          <div class="flex items-center space-x-2 px-3 py-1 rounded-lg bg-slate-800 border border-slate-700/70 text-xs">
+          <div class="flex items-center space-x-2 px-2.5 py-1 rounded-lg bg-slate-800 border border-slate-700/70 text-xs">
             <i class="fa-solid fa-truck text-teal-400"></i>
-            <span class="text-slate-300 font-medium">PRIDE Bahan Fleet: <strong class="text-teal-400">15 Active</strong></span>
+            <span class="text-slate-300 font-medium">Fleet: <strong class="text-teal-400" id="active-vehicles-count">8 Active</strong></span>
           </div>
           <a href="NESFIC_I10_Proof_of_Work_Solution_Evidence.pdf" target="_blank" class="px-3 py-1.5 rounded-lg bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-500 hover:to-emerald-500 text-white font-medium text-xs flex items-center space-x-1.5 shadow-md shadow-teal-900/30 transition-all">
             <i class="fa-solid fa-file-pdf"></i>
-            <span>Proof of Work PDF (0.9 MB)</span>
+            <span>Proof of Work PDF</span>
           </a>
         </div>
       </div>
@@ -111,7 +111,7 @@
           <span class="text-[10px] text-slate-400 uppercase font-bold tracking-wider">Weighment Speed</span>
           <div class="flex items-baseline space-x-1.5 mt-0.5">
             <span class="text-lg font-extrabold text-emerald-400" id="stat-latency">3.2</span>
-            <span class="text-xs text-slate-300 font-semibold">Secs / Truck</span>
+            <span class="text-xs text-slate-300 font-semibold">Secs / Intake</span>
           </div>
           <span class="text-[10px] text-slate-400">Manual was 180s</span>
         </div>
@@ -122,7 +122,7 @@
             <span class="text-lg font-extrabold text-teal-400" id="stat-fuel">24.8%</span>
             <span class="text-xs text-slate-300 font-semibold">Saved</span>
           </div>
-          <span class="text-[10px] text-teal-300">Terrain VRP Router</span>
+          <span class="text-[10px] text-teal-300">Terrain VRP Engine</span>
         </div>
 
         <div class="p-2.5 rounded-xl bg-slate-800/50 border border-slate-700/60">
@@ -165,31 +165,29 @@
       <div class="grid grid-cols-1 lg:grid-cols-4 gap-5">
         <!-- Interactive Map Container -->
         <div class="lg:col-span-3 glass-panel p-4 flex flex-col h-[580px]">
-          <div class="flex items-center justify-between pb-3 mb-2 border-b border-slate-800">
+          <div class="flex flex-wrap items-center justify-between pb-3 mb-2 border-b border-slate-800 gap-2">
             <div class="flex items-center space-x-2">
               <i class="fa-solid fa-satellite-dish text-teal-400"></i>
-              <h2 class="font-bold text-sm text-slate-100">Live Geospatial Value Chain: Kamrup Metropolitan & Guwahati Basin</h2>
+              <h2 class="font-bold text-sm text-slate-100">Live Geospatial Telemetry: Kamrup Metropolitan & Guwahati Basin</h2>
             </div>
             <div class="flex items-center space-x-2 text-xs">
-              <span class="inline-flex items-center px-2 py-0.5 rounded bg-blue-900/60 text-blue-300 border border-blue-700/50">
-                <span class="w-2 h-2 rounded-full bg-blue-400 mr-1.5"></span> PRIDE Bahan (Electric EV)
-              </span>
-              <span class="inline-flex items-center px-2 py-0.5 rounded bg-amber-900/60 text-amber-300 border border-amber-700/50">
-                <span class="w-2 h-2 rounded-full bg-amber-400 mr-1.5"></span> Hotspot Bins
-              </span>
-              <span class="inline-flex items-center px-2 py-0.5 rounded bg-emerald-900/60 text-emerald-300 border border-emerald-700/50">
-                <span class="w-2 h-2 rounded-full bg-emerald-400 mr-1.5"></span> Boragaon MRF
-              </span>
+              <button onclick="toggleFloodLayer()" id="btn-flood-toggle" class="px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-cyan-400 border border-cyan-500/40 flex items-center space-x-1.5">
+                <i class="fa-solid fa-water"></i>
+                <span>Flood Risk Zones: <strong id="flood-status-text">Visible</strong></span>
+              </button>
             </div>
           </div>
           <!-- Leaflet Map Container -->
           <div id="gis-map" class="flex-1 rounded-xl overflow-hidden border border-slate-800 z-10"></div>
-          <div class="mt-3 flex items-center justify-between text-xs text-slate-400 px-1">
+          <div class="mt-3 flex flex-wrap items-center justify-between text-xs text-slate-400 px-1 gap-2">
             <span class="flex items-center space-x-1.5">
-              <i class="fa-solid fa-water text-cyan-400"></i>
-              <span>Flood-Aware Avoidance Engine Active: Deepor Beel buffer & Zoo Road low-lying corridor rerouted.</span>
+              <i class="fa-solid fa-route text-teal-400"></i>
+              <span>ASDMA Flood-Adaptive Routing active. Diverting electric three-wheelers around Anil Nagar & Deepor Beel basin.</span>
             </span>
-            <span class="font-mono text-[11px] text-slate-500">Live GPS Polling: 2000ms &bull; OpenStreetMap Data</span>
+            <span class="font-mono text-[11px] text-emerald-400 flex items-center space-x-1">
+              <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping mr-1"></span>
+              <span>SSE Live GPS Sync: Active</span>
+            </span>
           </div>
         </div>
 
@@ -197,7 +195,7 @@
         <div class="glass-panel p-4 flex flex-col h-[580px]">
           <div class="flex items-center justify-between pb-2 mb-3 border-b border-slate-800">
             <h3 class="font-bold text-xs uppercase tracking-wider text-slate-300">Active Fleet Telemetry</h3>
-            <span class="text-xs px-2 py-0.5 rounded bg-teal-500/20 text-teal-400 font-mono">15/15 Online</span>
+            <span class="text-xs px-2 py-0.5 rounded bg-teal-500/20 text-teal-400 font-mono" id="fleet-badge-count">8 Online</span>
           </div>
 
           <div class="flex-1 overflow-y-auto space-y-2.5 pr-1" id="fleet-list">
@@ -205,9 +203,9 @@
           </div>
 
           <div class="mt-4 pt-3 border-t border-slate-800">
-            <button onclick="simulateTelemetryPacket()" class="w-full py-2 bg-slate-800 hover:bg-slate-700 border border-slate-600 rounded-lg text-xs font-semibold text-slate-200 flex items-center justify-center space-x-2 transition-all">
+            <button onclick="triggerManualPing()" class="w-full py-2 bg-slate-800 hover:bg-slate-700 border border-slate-600 rounded-lg text-xs font-semibold text-slate-200 flex items-center justify-center space-x-2 transition-all">
               <i class="fa-solid fa-arrows-rotate text-teal-400"></i>
-              <span>Simulate Next GPS Ping Cycle</span>
+              <span>Refresh Fleet Coordinates</span>
             </button>
           </div>
         </div>
@@ -269,18 +267,19 @@
                 <option value="AS-01-PR-101">AS-01-PR-101 (PRIDE Bahan EV - Ramen Das)</option>
                 <option value="AS-01-PR-102">AS-01-PR-102 (PRIDE Bahan EV - Biren Kalita)</option>
                 <option value="AS-01-PR-103">AS-01-PR-103 (PRIDE Bahan EV - Manju Begum)</option>
+                <option value="AS-01-PR-104">AS-01-PR-104 (PRIDE Bahan EV - Pranab Boro)</option>
                 <option value="IND-CYCLE-044">IND-CYCLE-044 (Informal Collector - Tapan Boro)</option>
               </select>
             </div>
 
             <div>
-              <label class="block text-xs font-semibold text-slate-300 mb-1.5">Material Stream Classification</label>
+              <label class="block text-xs font-semibold text-slate-300 mb-1.5">Material Classification</label>
               <select id="weigh-material" onchange="updatePriceCalculation()" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-teal-500">
                 <option value="PET" data-rate="26.0">Rigid PET Bottles (₹26.00 / kg)</option>
-                <option value="HDPE" data-rate="32.0">HDPE / Rigid Plastic Containers (₹32.00 / kg)</option>
-                <option value="CARD" data-rate="14.0">Corrugated Cardboard / Kraft (₹14.00 / kg)</option>
+                <option value="HDPE" data-rate="32.0">HDPE / Rigid Plastic (₹32.00 / kg)</option>
+                <option value="CARD" data-rate="14.0">Corrugated Cardboard (₹14.00 / kg)</option>
                 <option value="MLP" data-rate="8.5">Multilayered Flexible Plastics (₹8.50 / kg)</option>
-                <option value="METAL" data-rate="42.0">Aluminium Cans & Mixed Metal (₹42.00 / kg)</option>
+                <option value="METAL" data-rate="42.0">Aluminium & Mixed Metal (₹42.00 / kg)</option>
               </select>
             </div>
 
@@ -291,7 +290,7 @@
           </div>
 
           <!-- Settlement Summary & Action Buttons -->
-          <div class="p-4 rounded-xl bg-slate-800/60 border border-slate-700/80 flex items-center justify-between">
+          <div class="p-4 rounded-xl bg-slate-800/60 border border-slate-700/80 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <div>
               <span class="text-xs text-slate-400">Calculated Fair-Trade Cooperative Payout:</span>
               <div class="text-2xl font-black text-amber-400 font-mono" id="weigh-payout">₹12,220.00</div>
@@ -300,11 +299,11 @@
             <div class="flex space-x-2">
               <button onclick="speakAssameseSlip()" class="px-3 py-2 bg-slate-700 hover:bg-slate-600 rounded-lg text-xs font-medium text-slate-200 flex items-center space-x-1.5">
                 <i class="fa-solid fa-volume-high text-teal-400"></i>
-                <span>Audio Playback (অসমীয়া)</span>
+                <span>Audio (অসমীয়া)</span>
               </button>
               <button onclick="commitWeighment()" class="px-5 py-2.5 bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-500 hover:to-emerald-500 text-white rounded-lg text-xs font-bold shadow-lg shadow-teal-900/30 flex items-center space-x-1.5">
                 <i class="fa-solid fa-check-double"></i>
-                <span>Commit & Log Digital Weighment</span>
+                <span>Commit & Print Weighment</span>
               </button>
             </div>
           </div>
@@ -341,7 +340,7 @@
             <div class="mt-4 space-y-2 text-xs">
               <div class="flex justify-between text-slate-300">
                 <span>Moisture Contamination:</span>
-                <span class="font-mono text-emerald-400 font-bold">1.2% (Permissible < 3%)</span>
+                <span class="font-mono text-emerald-400 font-bold">1.2% (Permissible &lt; 3%)</span>
               </div>
               <div class="flex justify-between text-slate-300">
                 <span>Foreign Organic Matter:</span>
@@ -377,6 +376,10 @@
           </div>
           <div class="flex items-center space-x-2">
             <input type="text" id="worker-search" placeholder="Search by name, ID or vehicle..." oninput="filterWorkers(this.value)" class="bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:border-teal-500 w-64">
+            <button onclick="openNewWorkerModal()" class="px-3 py-1.5 rounded-lg bg-teal-600 hover:bg-teal-500 text-white text-xs font-semibold flex items-center space-x-1.5">
+              <i class="fa-solid fa-user-plus"></i>
+              <span>Onboard Member</span>
+            </button>
           </div>
         </div>
 
@@ -485,9 +488,9 @@
             </div>
           </div>
 
-          <button onclick="downloadEPRCertificate()" class="mt-6 w-full py-2.5 bg-gradient-to-r from-blue-700 to-teal-600 hover:from-blue-600 hover:to-teal-500 text-white rounded-lg text-xs font-bold flex items-center justify-center space-x-2 shadow-lg shadow-blue-900/40">
+          <button onclick="viewEPRCertificateModal('EPR-AS-2026-081')" class="mt-6 w-full py-2.5 bg-gradient-to-r from-blue-700 to-teal-600 hover:from-blue-600 hover:to-teal-500 text-white rounded-lg text-xs font-bold flex items-center justify-center space-x-2 shadow-lg shadow-blue-900/40">
             <i class="fa-solid fa-file-shield"></i>
-            <span>Export Verifiable CPCB Audit Report</span>
+            <span>View Verifiable CPCB Audit Certificate</span>
           </button>
         </div>
       </div>
@@ -586,6 +589,157 @@
     </div>
 
   </main>
+
+  <!-- RECEIPT MODAL -->
+  <div id="receipt-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white text-slate-900 rounded-2xl max-w-sm w-full p-6 shadow-2xl relative font-mono text-xs">
+      <button onclick="closeReceiptModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-800 text-lg">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <div class="text-center pb-3 border-b border-dashed border-slate-300">
+        <div class="font-bold text-sm tracking-wide">PRIDE COOPERATIVE SOCIETY</div>
+        <div class="text-[10px] text-slate-500">Pragjyotishpur Recycling Initiative &bull; Guwahati</div>
+        <div class="text-[10px] font-bold mt-1 text-teal-800">AUTOMATED IOT WEIGHMENT SLIP</div>
+      </div>
+
+      <div class="py-3 space-y-1.5 border-b border-dashed border-slate-300">
+        <div class="flex justify-between"><span>Slip ID:</span><strong id="slip-id">WGH-2026-1051</strong></div>
+        <div class="flex justify-between"><span>Date/Time:</span><span id="slip-time">23-Nov-2026 02:40</span></div>
+        <div class="flex justify-between"><span>Scale Indicator:</span><span>Avery India 60T (COM1)</span></div>
+        <div class="flex justify-between"><span>Vehicle:</span><strong id="slip-vehicle">AS-01-PR-101</strong></div>
+        <div class="flex justify-between"><span>Material:</span><strong id="slip-material">Rigid PET</strong></div>
+      </div>
+
+      <div class="py-3 space-y-1 border-b border-dashed border-slate-300">
+        <div class="flex justify-between"><span>Gross Weight:</span><span id="slip-gross">1,450.0 kg</span></div>
+        <div class="flex justify-between"><span>Tare Weight:</span><span id="slip-tare">980.0 kg</span></div>
+        <div class="flex justify-between text-sm font-bold text-teal-800">
+          <span>NET WEIGHT:</span><span id="slip-net">470.0 kg</span>
+        </div>
+        <div class="flex justify-between"><span>Coop Rate:</span><span id="slip-rate">₹26.00 / kg</span></div>
+      </div>
+
+      <div class="py-3 text-center bg-slate-100 rounded-lg my-2">
+        <div class="text-[10px] text-slate-500 uppercase">Total DBT Payout Disbursed</div>
+        <div class="text-xl font-black text-emerald-700" id="slip-payout">₹12,220.00</div>
+        <div class="text-[9px] text-slate-500 mt-0.5">Settlement: Bank Account / Aadhaar AePS</div>
+      </div>
+
+      <div class="text-center text-[9px] text-slate-400 pt-2">
+        <div>SHA-256: 7b9e11f0a8c2...e819b</div>
+        <div class="mt-1 font-sans">ধন্যবাদ &bull; Keep Assam Clean & Green</div>
+      </div>
+
+      <div class="mt-4 flex space-x-2">
+        <button onclick="window.print()" class="flex-1 py-2 bg-slate-900 text-white rounded-lg text-xs font-sans font-bold flex items-center justify-center space-x-1.5">
+          <i class="fa-solid fa-print"></i>
+          <span>Print Slip</span>
+        </button>
+        <button onclick="closeReceiptModal()" class="flex-1 py-2 bg-slate-200 text-slate-800 rounded-lg text-xs font-sans font-bold">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ONBOARD WORKER MODAL -->
+  <div id="worker-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-slate-900 border border-slate-800 text-slate-100 rounded-2xl max-w-md w-full p-6 shadow-2xl relative">
+      <button onclick="closeWorkerModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-100 text-lg">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <h3 class="font-bold text-sm text-slate-100 mb-1 flex items-center space-x-2">
+        <i class="fa-solid fa-user-plus text-teal-400"></i>
+        <span>Onboard New Safai Sathi / PRIDE Member</span>
+      </h3>
+      <p class="text-xs text-slate-400 mb-4">Direct Benefit Transfer registration for informal waste collectors.</p>
+
+      <form id="new-worker-form" onsubmit="handleNewWorkerSubmit(event)" class="space-y-3 text-xs">
+        <div>
+          <label class="block text-slate-300 font-semibold mb-1">Full Name (English & অসমীয়া)</label>
+          <input type="text" id="nw-name" placeholder="e.g. Babul Roy (বাবুল ৰায়)" required class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-slate-200 focus:outline-none focus:border-teal-500">
+        </div>
+        <div>
+          <label class="block text-slate-300 font-semibold mb-1">Mobile Number (for SMS & Voice Slips)</label>
+          <input type="text" id="nw-phone" placeholder="+91 98640 xxxxx" required class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-slate-200 focus:outline-none focus:border-teal-500">
+        </div>
+        <div>
+          <label class="block text-slate-300 font-semibold mb-1">Assigned Vehicle / Cart ID</label>
+          <input type="text" id="nw-vehicle" placeholder="e.g. AS-01-PR-109 or IND-CYCLE-055" required class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-slate-200 focus:outline-none focus:border-teal-500">
+        </div>
+        <div>
+          <label class="block text-slate-300 font-semibold mb-1">Beat / Ward Assignment</label>
+          <input type="text" id="nw-ward" placeholder="e.g. Ward 22 (Panbazar, Kamrup)" required class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-slate-200 focus:outline-none focus:border-teal-500">
+        </div>
+        <div>
+          <label class="block text-slate-300 font-semibold mb-1">Settlement Channel (DBT)</label>
+          <select id="nw-channel" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-slate-200 focus:outline-none focus:border-teal-500">
+            <option value="Aadhaar AePS / SBI">Aadhaar AePS (State Bank of India)</option>
+            <option value="Direct UPI / AGVB">Direct UPI / Assam Gramin Vikash Bank</option>
+            <option value="Direct UPI / PNB">Direct UPI / Punjab National Bank</option>
+            <option value="Cooperative Wallet">PRIDE Cooperative Dedicated Wallet</option>
+          </select>
+        </div>
+
+        <div class="pt-3 flex space-x-2">
+          <button type="submit" class="flex-1 py-2 bg-teal-600 hover:bg-teal-500 text-white rounded-lg font-bold transition-all">
+            Confirm Registration
+          </button>
+          <button type="button" onclick="closeWorkerModal()" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-lg">
+            Cancel
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- EPR CERTIFICATE MODAL -->
+  <div id="epr-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white text-slate-900 rounded-2xl max-w-lg w-full p-6 shadow-2xl relative text-xs">
+      <button onclick="closeEPRModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-800 text-lg">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <div class="text-center pb-3 border-b border-slate-200">
+        <div class="text-[10px] text-teal-700 font-bold tracking-widest uppercase">Central Pollution Control Board (CPCB)</div>
+        <div class="font-extrabold text-base text-slate-900 mt-0.5">Extended Producer Responsibility (EPR) Credit Certificate</div>
+        <div class="text-[10px] text-slate-500">Form VI &bull; Plastic Waste Management Rules, 2016 (Amended)</div>
+      </div>
+
+      <div class="py-4 space-y-2">
+        <div class="p-3 bg-slate-50 rounded-lg border border-slate-200 grid grid-cols-2 gap-2">
+          <div><span class="text-slate-500">Certificate No:</span><div class="font-bold font-mono text-teal-800" id="epr-cert-id">EPR-AS-2026-081</div></div>
+          <div><span class="text-slate-500">Plastic Category:</span><div class="font-bold" id="epr-cert-cat">Category I (Rigid PET)</div></div>
+          <div><span class="text-slate-500">Certified Tonnage:</span><div class="font-bold text-slate-900" id="epr-cert-weight">18.4 Metric Tons</div></div>
+          <div><span class="text-slate-500">Origin Facility:</span><div class="font-bold">PRIDE Boragaon MRF #1</div></div>
+        </div>
+
+        <div class="p-3 bg-slate-50 rounded-lg border border-slate-200">
+          <span class="text-slate-500">Accredited Co-Processing / Recycling Partner:</span>
+          <div class="font-bold text-slate-900 mt-0.5" id="epr-cert-recycler">North East Eco-Polymers Ltd. (Amingaon, Kamrup)</div>
+          <div class="text-[10px] text-slate-500">ASPCB Authorized Registration: ASPCB/PWM/REG/2024/0981</div>
+        </div>
+
+        <div class="p-3 bg-slate-50 rounded-lg border border-slate-200 font-mono text-[10px]">
+          <span class="text-slate-500 font-sans text-xs">Cryptographic Mass-Balance Hash:</span>
+          <div class="text-teal-700 font-bold break-all mt-0.5" id="epr-cert-hash">8f3a9e4c1d882b7f09a12c8b7764e21ab10992c3d4</div>
+          <div class="text-slate-400 mt-1 font-sans text-[10px]">Verified against 42 individual IoT weighbridge batch ingestions. Zero double counting.</div>
+        </div>
+      </div>
+
+      <div class="pt-3 border-t border-slate-200 flex space-x-2">
+        <button onclick="window.print()" class="flex-1 py-2 bg-teal-800 hover:bg-teal-700 text-white rounded-lg font-bold flex items-center justify-center space-x-1.5">
+          <i class="fa-solid fa-download"></i>
+          <span>Print / Export Audit Certificate</span>
+        </button>
+        <button onclick="closeEPRModal()" class="px-4 py-2 bg-slate-200 text-slate-800 rounded-lg font-bold">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
 
   <!-- FOOTER -->
   <footer class="bg-slate-900 border-t border-slate-800 py-4 mt-auto">
