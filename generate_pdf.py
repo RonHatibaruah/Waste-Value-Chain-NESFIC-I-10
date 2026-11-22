@@ -221,6 +221,13 @@ def build_pdf():
     story.append(Paragraph("• <b>Edge & IoT Telemetry:</b> ESP32-WROVER microcontroller with RS-232/RS-485 optoisolated transceivers sniffing weighbridge indicators (Avery, Essae, Eagle); AIS-140 GPS/4G LTE-M telemetry on collection vehicles.", bullet_style))
     story.append(Paragraph("• <b>Ingestion & Queuing Layer:</b> Fastify (Node.js) and FastAPI (Python) event receivers backed by Redis Pub/Sub and Kafka/RabbitMQ ensuring zero packet loss during network surges.", bullet_style))
     story.append(Paragraph("• <b>Spatial & Relational Persistence:</b> PostgreSQL 16 with PostGIS for spatial queries, geofencing, and vehicle beat tracking; TimescaleDB for continuous sensor streams.", bullet_style))
+    
+    if os.path.exists("assets/chain_of_custody_flow.png"):
+        story.append(Paragraph("End-to-End Value Chain Custody & Data Integrity:", h2_style))
+        img_coc = Image("assets/chain_of_custody_flow.png", width=6.8*inch, height=2.78*inch)
+        story.append(img_coc)
+        story.append(Spacer(1, 10))
+
     story.append(Paragraph("• <b>Enterprise & Compliance Layer:</b> Vernacular PWA (Assamese/Bengali/Hindi) for collectors, Industrial MRF Touch Console, and automated CPCB/ASPCB EPR mass-balance certificate generator.", bullet_style))
     story.append(Spacer(1, 10))
 
@@ -233,6 +240,12 @@ def build_pdf():
         "A critical bottleneck in Assam's waste management is manual weighbridge logging, which causes significant data tampering, delayed worker payments, and unverified EPR claims. We have developed and bench-tested a non-invasive, universal IoT weighbridge bridge that passively captures weight readings directly from digital indicators.",
         body_style
     ))
+
+    
+    if os.path.exists("assets/hardware_schematic.png"):
+        img_hw = Image("assets/hardware_schematic.png", width=6.8*inch, height=3.26*inch)
+        story.append(img_hw)
+        story.append(Spacer(1, 10))
 
     hw_specs = [
         [Paragraph("<b>Component / Subsystem</b>", table_hdr_style), Paragraph("<b>Specification & Engineering Selection</b>", table_hdr_style), Paragraph("<b>Test Verification Result</b>", table_hdr_style)],

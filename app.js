@@ -265,14 +265,14 @@ function triggerManualPing() {
 function switchTab(tabId) {
   document.querySelectorAll('.tab-pane').forEach(el => el.classList.add('hidden'));
   document.querySelectorAll('.tab-btn').forEach(btn => {
-    btn.classList.remove('active', 'text-teal-400', 'bg-slate-800/80', 'border-teal-500/30');
-    btn.classList.add('text-slate-400');
+    btn.classList.remove('active', 'text-blue-700', 'bg-blue-50', 'border-blue-200', 'text-teal-400', 'bg-slate-800/80', 'border-teal-500/30');
+    btn.classList.add('text-slate-600');
   });
 
   const activeBtn = document.getElementById(`btn-${tabId}`);
   if (activeBtn) {
-    activeBtn.classList.add('active', 'text-teal-400', 'bg-slate-800/80', 'border-teal-500/30');
-    activeBtn.classList.remove('text-slate-400');
+    activeBtn.classList.add('active', 'text-blue-700', 'bg-blue-50', 'border-blue-200');
+    activeBtn.classList.remove('text-slate-600');
   }
 
   const tabContentId = tabId.replace('-tab', '');
