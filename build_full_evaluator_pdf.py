@@ -232,6 +232,12 @@ def build_pdf():
     if os.path.exists("assets/chain_of_custody_flow.png"):
         img_coc = Image("assets/chain_of_custody_flow.png", width=6.8*inch, height=2.78*inch)
         story.append(img_coc)
+        story.append(Spacer(1, 8))
+
+    if os.path.exists("assets/assam_statewide_roadmap.png"):
+        story.append(Paragraph("Assam State-Wide Hub-and-Spoke Value Chain & Logistics Network:", h2_style))
+        img_statewide = Image("assets/assam_statewide_roadmap.png", width=6.8*inch, height=3.2*inch)
+        story.append(img_statewide)
         story.append(Spacer(1, 10))
 
     # ---------------------------------------------------------
@@ -247,6 +253,12 @@ def build_pdf():
     if os.path.exists("assets/hardware_schematic.png"):
         img_hw = Image("assets/hardware_schematic.png", width=6.8*inch, height=3.26*inch)
         story.append(img_hw)
+        story.append(Spacer(1, 8))
+
+    if os.path.exists("assets/weighbridge_hardware_cutaway.png"):
+        story.append(Paragraph("Physical Scale Deck Retrofit & Opto-Isolated Hardware Harness:", h2_style))
+        img_cutaway = Image("assets/weighbridge_hardware_cutaway.png", width=6.8*inch, height=3.09*inch)
+        story.append(img_cutaway)
         story.append(Spacer(1, 8))
 
     hw_specs = [
@@ -320,6 +332,12 @@ def build_pdf():
     if os.path.exists("assets/mass_balance_sankey.png"):
         img_sankey = Image("assets/mass_balance_sankey.png", width=6.8*inch, height=3.1*inch)
         story.append(img_sankey)
+        story.append(Spacer(1, 8))
+
+    if os.path.exists("assets/cpcb_epr_certificate.png"):
+        story.append(Paragraph("Statutory CPCB / ASPCB EPR Recycling Certificate & Verification Token:", h2_style))
+        img_cpcb = Image("assets/cpcb_epr_certificate.png", width=6.8*inch, height=3.36*inch)
+        story.append(img_cpcb)
         story.append(Spacer(1, 10))
 
     # ---------------------------------------------------------

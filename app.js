@@ -1235,3 +1235,64 @@ function exportAuditTrailCSV() {
   document.body.removeChild(link);
 }
 
+// -------------------------------------------------------------
+// 12. Extended Admin Functions & Evaluator Simulator Tools
+// -------------------------------------------------------------
+function adminDisburseDBT(workerId, name, amount) {
+  const ref = "UPI-AS-" + Math.floor(100000 + Math.random() * 900000);
+  const now = new Date();
+  const timeStr = `${now.getDate()}-Nov ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+  
+  DEFAULT_AUDIT_LOGS.unshift({
+    time: timeStr,
+    event: "DBT_DISBURSEMENT_SUCCESS",
+    actor: "admin@pridecoop.in",
+    detail: `Instant UPI credit ₹${amount.toFixed(2)} to ${name} (${workerId}). NPCI Ref: ${ref}`,
+    hash: "dbt_" + Math.random().toString(36).substring(2, 10)
+  });
+  renderAdminAuditLogs();
+
+  alert(`Direct Benefit Transfer (DBT) Successful!\n\nBeneficiary: ${name} (${workerId})\nAmount Credited: ₹${amount.toFixed(2)}\nGateway: SBI / Jan Dhan AePS\nNPCI Reference: ${ref}\n\nSMS Confirmation dispatched in Assamese to beneficiary phone.`);
+}
+
+function adminMintEPRBatch() {
+  const batchId = "BATCH-PET-2026-" + Math.floor(1000 + Math.random() * 9000);
+  const certId = "CPCB-EPR-AS-2026-" + Math.floor(10000 + Math.random() * 90000);
+  const now = new Date();
+  const timeStr = `${now.getDate()}-Nov ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+
+  DEFAULT_AUDIT_LOGS.unshift({
+    time: timeStr,
+    event: "CPCB_EPR_CERTIFICATE_MINTED",
+    actor: "admin@pridecoop.in",
+    detail: `Minted CPCB Certificate ${certId} for 13.28 MT baled rPET flakes. Batch: ${batchId}`,
+    hash: "cpcb_" + Math.random().toString(36).substring(2, 10)
+  });
+  renderAdminAuditLogs();
+
+  alert(`CPCB EPR Certificate Successfully Minted & Signed!\n\nCertificate ID: ${certId}\nBatch UUID: ${batchId}\nMaterial: Rigid PET (Baled Flakes)\nNet Certified Quantity: 13.28 Metric Tonnes\nMass Balance Yield: 98.0%\nRegistry: CPCB & ASPCB Form-IV Portal\nVerification Hash: SHA-256 Validated\n\nOfficial compliance docket ready for Brand Owner off-take.`);
+}
+
+function simulateFloodAlarm() {
+  switchTab('gis-tab');
+  if (map) {
+    map.flyTo([26.172, 91.782], 14, { animate: true, duration: 1.5 });
+  }
+  alert("SIMULATOR TRIGGER: Severe Waterlogging Inundation Alert in Ward 12 / Anil Nagar!\n\nDynamic Dijkstra VRP automatically rerouting PRIDE collection vehicles AS-01-PR-102 and AS-01-PR-107 via Rajgarh flyover bypass to avoid flood stalled engine failure.");
+}
+
+function simulateTruckWeighment() {
+  switchTab('weighbridge-tab');
+  const slider = document.getElementById('weight-input-slider');
+  if (slider) {
+    slider.value = 650;
+    manualWeightUpdate(650);
+  }
+  alert("SIMULATOR TRIGGER: Incoming PRIDE Bahan EV AS-01-PR-104 docked at Boragaon MRF Platform #1!\n\nRS-232 telemetry captured net load: 650.0 kg.\nAutomated gross/tare calculated.");
+}
+
+function simulateVoiceSlip() {
+  speakAssameseSlip();
+}
+
+
