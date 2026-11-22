@@ -5,6 +5,12 @@
 
 ---
 
+## 🌐 Live Cloudflare Deployment
+- **Live URL:** [https://waste-value-chain-nesfic-i-10.pages.dev](https://waste-value-chain-nesfic-i-10.pages.dev)
+- **Deployment Platform:** Cloudflare Pages (Global Edge Network)
+
+---
+
 ## 📌 Problem Statement Overview
 - **Problem Code:** `NESFIC-I-10`
 - **Challenge Title:** Creating Real-Time Intelligence Across Assam's Waste Value Chain
