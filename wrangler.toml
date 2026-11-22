@@ -1,0 +1,14 @@
+name = "waste-value-chain-nesfic-i-10"
+compatibility_date = "2024-11-01"
+pages_build_output_dir = "."
+
+[site]
+bucket = "."
+
+# Cloudflare Pages / Worker configuration
+[vars]
+ENVIRONMENT = "production"
+APP_NAME = "PRIDE WasteOS (AsomiCycle)"
+PROBLEM_CODE = "NESFIC-I-10"
+GRANT_TOTAL = "40 Lakhs"
+TECH_TEAM_COST = "20 Lakhs"
