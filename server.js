@@ -32,6 +32,13 @@ const db = {
     { id: "AS-01-PR-107", driver: "Rupali Deka (ৰূপালী ডেকা)", type: "PRIDE Bahan EV", lat: 26.1450, lng: 91.7400, speed: 15, status: "Collecting", beat: "Ward 28 (Ganeshguri)", cargoKg: 460, battery: 69 },
     { id: "AS-01-PR-108", driver: "Hiren Nath (হিৰেন নাথ)", type: "PRIDE Bahan EV", lat: 26.1700, lng: 91.7050, speed: 19, status: "En Route MRF", beat: "Ward 42 (Maligaon)", cargoKg: 520, battery: 60 }
   ],
+  rates: {
+    PET: 26.0,
+    HDPE: 32.0,
+    CARD: 14.0,
+    MLP: 8.5,
+    METAL: 42.0
+  },
   workers: [
     { id: "SW-0101", name: "Ramen Das (ৰমেন দাস)", phone: "+91 98640 12001", vehicle: "AS-01-PR-101", ward: "Ward 24 (Fancy Bazar)", volume: 420, payout: 10920, status: "Processed", channel: "Aadhaar AePS / SBI" },
     { id: "SW-0102", name: "Biren Kalita (বীৰেন কলিতা)", phone: "+91 98640 12002", vehicle: "AS-01-PR-102", ward: "Ward 12 (Paltan Bazar)", volume: 580, payout: 15080, status: "Pending Scale", channel: "Cooperative Wallet" },
@@ -49,6 +56,11 @@ const db = {
     { id: "EPR-AS-2026-082", cat: "Category I (HDPE Containers)", weightTons: 15.8, recycler: "Pragjyotish Plast-Recycle Ltd. (Nalbari)", hash: "3e5b12a90fd7189c445a661b09823ce1", status: "Certified", date: "2026-11-21" },
     { id: "EPR-AS-2026-083", cat: "Category II (Flexible MLP)", weightTons: 12.8, recycler: "Brahmaputra Green Solutions (Guwahati)", hash: "9c8a41b72e5091ff82a39b4c02914db2", status: "Verified", date: "2026-11-22" },
     { id: "EPR-AS-2026-084", cat: "Category III (Multi-Layer)", weightTons: 5.6, recycler: "Guwahati Cement Kiln Co-Proc.", hash: "1d4f77e63c0047fa189c33bb71900da4", status: "Audited", date: "2026-11-22" }
+  ],
+  auditLogs: [
+    { timestamp: "2026-11-23 02:45", actor: "SUPER_ADMIN", action: "SYSTEM_INITIALIZED", details: "PRIDE WasteOS v1.0 Core Online. Connected to Scale COM1 (Avery 60T).", hash: "a1b2c3d4" },
+    { timestamp: "2026-11-23 02:48", actor: "MRF_OP_01", action: "WEIGHMENT_COMMITTED", details: "Vehicle AS-01-PR-101 (Ramen Das) weighed: 470kg PET. Payout: ₹12,220.", hash: "e5f6a7b8" },
+    { timestamp: "2026-11-23 03:00", actor: "GMC_AUDITOR", action: "MASS_BALANCE_AUDITED", details: "CPCB Form VI Batch EPR-AS-2026-081 verified (18.4 Tons Rigid PET).", hash: "9c8d7e6f" }
   ]
 };
 
@@ -58,7 +70,7 @@ const sseClients = new Set();
 // Telemetry Jitter Simulation Interval (every 3 seconds)
 setInterval(() => {
   db.fleet.forEach(v => {
-    if (v.status !== "At Boragaon MRF") {
+    if (v.status !== "At Boragaon MRF" && v.status !== "In Maintenance") {
       v.lat += (Math.random() - 0.5) * 0.0015;
       v.lng += (Math.random() - 0.5) * 0.0015;
       v.speed = Math.floor(12 + Math.random() * 14);
@@ -110,14 +122,43 @@ const server = http.createServer((req, res) => {
     return;
   }
 
-  // 3. GET /api/workers
+  // 3. GET /api/rates & POST /api/admin/rates
+  if (req.method === 'GET' && pathname === '/api/rates') {
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify(db.rates));
+    return;
+  }
+  if (req.method === 'POST' && pathname === '/api/admin/rates') {
+    let body = '';
+    req.on('data', chunk => body += chunk);
+    req.on('end', () => {
+      try {
+        const newRates = JSON.parse(body);
+        Object.assign(db.rates, newRates);
+        db.auditLogs.unshift({
+          timestamp: new Date().toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' }),
+          actor: "ADMIN_USER",
+          action: "PRICE_INDEX_UPDATED",
+          details: `Updated rates: PET ₹${db.rates.PET}, HDPE ₹${db.rates.HDPE}, Cardboard ₹${db.rates.CARD}`,
+          hash: Math.random().toString(16).substring(2, 10)
+        });
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ success: true, rates: db.rates }));
+      } catch (err) {
+        res.writeHead(400, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ error: "Invalid JSON" }));
+      }
+    });
+    return;
+  }
+
+  // 4. GET /api/workers & POST /api/workers/add
   if (req.method === 'GET' && pathname === '/api/workers') {
     res.writeHead(200, { 'Content-Type': 'application/json' });
     res.end(JSON.stringify(db.workers));
     return;
   }
 
-  // 4. POST /api/workers/add
   if (req.method === 'POST' && pathname === '/api/workers/add') {
     let body = '';
     req.on('data', chunk => body += chunk);
@@ -129,6 +170,13 @@ const server = http.createServer((req, res) => {
         newWorker.payout = 0;
         newWorker.status = 'Registered';
         db.workers.unshift(newWorker);
+        db.auditLogs.unshift({
+          timestamp: new Date().toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' }),
+          actor: "ADMIN_USER",
+          action: "WORKER_ONBOARDED",
+          details: `New Safai Sathi ${newWorker.name} (${newWorker.id}) onboarded.`,
+          hash: Math.random().toString(16).substring(2, 10)
+        });
         res.writeHead(201, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({ success: true, worker: newWorker }));
       } catch (err) {
@@ -147,7 +195,7 @@ const server = http.createServer((req, res) => {
       try {
         const data = JSON.parse(body);
         const netKg = parseFloat(data.netKg) || 0;
-        const rate = parseFloat(data.rate) || 26.0;
+        const rate = parseFloat(data.rate) || (db.rates[data.material] || 26.0);
         const payout = netKg * rate;
 
         const record = {
@@ -166,13 +214,20 @@ const server = http.createServer((req, res) => {
 
         db.weighments.unshift(record);
 
-        // Update matching worker volume & payout if found
         const matchedWorker = db.workers.find(w => w.vehicle === data.vehicle);
         if (matchedWorker) {
           matchedWorker.volume += netKg;
           matchedWorker.payout += payout;
           matchedWorker.status = 'Processed';
         }
+
+        db.auditLogs.unshift({
+          timestamp: new Date().toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' }),
+          actor: "SCALE_COM1",
+          action: "WEIGHMENT_INGESTED",
+          details: `Slip ${record.id}: ${record.vehicle} - ${netKg}kg ${record.material} (₹${payout})`,
+          hash: Math.random().toString(16).substring(2, 10)
+        });
 
         res.writeHead(201, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({ success: true, weighment: record }));
@@ -188,6 +243,13 @@ const server = http.createServer((req, res) => {
   if (req.method === 'GET' && pathname === '/api/epr/batches') {
     res.writeHead(200, { 'Content-Type': 'application/json' });
     res.end(JSON.stringify(db.eprBatches));
+    return;
+  }
+
+  // 7. GET /api/admin/audit-logs
+  if (req.method === 'GET' && pathname === '/api/admin/audit-logs') {
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify(db.auditLogs));
     return;
   }
 

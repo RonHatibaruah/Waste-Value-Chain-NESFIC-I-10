@@ -50,21 +50,29 @@
           </div>
         </div>
 
-        <!-- Telemetry Status Pills -->
-        <div class="hidden md:flex items-center space-x-3">
+        <!-- Header Actions: Telemetry, Tutorial, Admin Login & PDF -->
+        <div class="hidden md:flex items-center space-x-2.5">
           <div class="flex items-center space-x-2 px-2.5 py-1 rounded-lg bg-slate-100 border border-slate-200 text-xs">
             <span class="pulse-badge" id="sse-badge"></span>
-            <span class="text-slate-700 font-medium">IoT Weighbridge: <strong class="text-emerald-700" id="sse-status">Online (SSE 3s)</strong></span>
-            <span class="text-slate-400">|</span>
-            <span class="text-slate-500 font-mono text-[11px]">RS-232 9600 8N1</span>
+            <span class="text-slate-700 font-medium">IoT Scale: <strong class="text-emerald-700" id="sse-status">Online (3s)</strong></span>
           </div>
-          <div class="flex items-center space-x-2 px-2.5 py-1 rounded-lg bg-slate-100 border border-slate-200 text-xs">
-            <i class="fa-solid fa-truck text-teal-600"></i>
-            <span class="text-slate-700 font-medium">Fleet: <strong class="text-teal-700" id="active-vehicles-count">8 Active</strong></span>
-          </div>
-          <a href="NESFIC_I10_Proof_of_Work_Solution_Evidence.pdf" target="_blank" class="px-3.5 py-1.5 rounded-lg bg-gradient-to-r from-blue-700 to-teal-700 hover:from-blue-800 hover:to-teal-800 text-white font-medium text-xs flex items-center space-x-1.5 shadow-sm transition-all">
+
+          <!-- Tutorial Button -->
+          <button onclick="openTutorialModal()" class="px-3 py-1.5 rounded-lg bg-teal-50 hover:bg-teal-100 text-teal-800 border border-teal-300 text-xs font-bold flex items-center space-x-1.5 transition-all shadow-xs">
+            <i class="fa-solid fa-graduation-cap text-teal-700"></i>
+            <span>Tutorial & Guide</span>
+          </button>
+
+          <!-- Admin Login / Console Button -->
+          <button onclick="handleAdminHeaderClick()" id="btn-admin-header" class="px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-800 border border-slate-300 text-xs font-bold flex items-center space-x-1.5 transition-all shadow-xs">
+            <i class="fa-solid fa-shield-halved text-slate-600" id="admin-icon"></i>
+            <span id="admin-header-label">Admin Login</span>
+          </button>
+
+          <!-- Proof of Work PDF Link -->
+          <a href="NESFIC_I10_Proof_of_Work_Solution_Evidence.pdf" target="_blank" class="px-3 py-1.5 rounded-lg bg-gradient-to-r from-blue-700 to-teal-700 hover:from-blue-800 hover:to-teal-800 text-white font-medium text-xs flex items-center space-x-1.5 shadow-sm transition-all">
             <i class="fa-solid fa-file-pdf"></i>
-            <span>Proof of Work PDF (1.27 MB)</span>
+            <span>Proof of Work PDF</span>
           </a>
         </div>
       </div>
@@ -95,11 +103,15 @@
           <i class="fa-solid fa-clipboard-list"></i>
           <span>5. Proposal Form Copy-Paste Hub (12 Sections)</span>
         </button>
+        <button onclick="openAdminPanelOrLogin()" id="btn-admin-tab" class="tab-btn px-4 py-2 text-xs font-semibold rounded-lg text-purple-700 hover:bg-purple-50 flex items-center space-x-2 whitespace-nowrap">
+          <i class="fa-solid fa-sliders"></i>
+          <span>Admin Management Panel</span>
+        </button>
       </div>
     </div>
   </header>
 
-  <!-- KPI SUMMARY STRIP -->
+  <!-- KPI SUMMARY STRIP (Clean Operational Metrics - No Grant Figures) -->
   <section class="bg-white border-b border-slate-200 py-3 shadow-xs">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="grid grid-cols-2 md:grid-cols-6 gap-3">
@@ -148,13 +160,14 @@
           <span class="text-[10px] text-blue-700">CPCB Form VI Match</span>
         </div>
 
-        <div class="p-2.5 rounded-xl bg-amber-50/60 border border-amber-200">
-          <span class="text-[10px] text-amber-800 uppercase font-bold tracking-wider">Problem Grant</span>
+        <!-- Replaced 6th Card: Landfill Diversion Rate -->
+        <div class="p-2.5 rounded-xl bg-teal-50/70 border border-teal-200">
+          <span class="text-[10px] text-teal-800 uppercase font-bold tracking-wider">Landfill Diversion</span>
           <div class="flex items-baseline space-x-1.5 mt-0.5">
-            <span class="text-lg font-extrabold text-amber-700">₹40.0L</span>
-            <span class="text-xs text-slate-600">Allocated</span>
+            <span class="text-lg font-extrabold text-teal-700">86.4%</span>
+            <span class="text-xs text-slate-600">Diverted</span>
           </div>
-          <span class="text-[10px] text-amber-800 font-medium">₹20L Tech Team</span>
+          <span class="text-[10px] text-teal-800 font-medium">Brahmaputra Basin Protected</span>
         </div>
       </div>
     </div>
@@ -187,25 +200,30 @@
               <i class="fa-solid fa-play"></i>
               <span>Launch Live Operations Console</span>
             </button>
+            <button onclick="openTutorialModal()" class="px-5 py-3 rounded-xl bg-teal-50 hover:bg-teal-100 text-teal-800 border border-teal-300 font-bold text-sm flex items-center space-x-2 transition-all">
+              <i class="fa-solid fa-graduation-cap text-teal-700"></i>
+              <span>Interactive Tutorial & Guide</span>
+            </button>
             <a href="NESFIC_I10_Proof_of_Work_Solution_Evidence.pdf" target="_blank" class="px-5 py-3 rounded-xl bg-white hover:bg-slate-50 text-slate-800 border border-slate-300 font-bold text-sm shadow-sm flex items-center space-x-2 transition-all">
               <i class="fa-solid fa-file-pdf text-red-600"></i>
-              <span>Download Proof of Work PDF (1.27 MB)</span>
+              <span>Proof of Work PDF (2.56 MB)</span>
             </a>
             <button onclick="switchTab('proposal-tab')" class="px-5 py-3 rounded-xl bg-amber-50 hover:bg-amber-100 text-amber-900 border border-amber-300 font-bold text-sm flex items-center space-x-2 transition-all">
               <i class="fa-solid fa-clipboard-check text-amber-600"></i>
-              <span>Form Copy-Paste Hub (12 Sections)</span>
+              <span>Proposal Hub (12 Sections)</span>
             </button>
           </div>
         </div>
 
+        <!-- Clean Meta Grid (No Grant/Tech Team numbers) -->
         <div class="mt-8 pt-6 border-t border-slate-200/80 grid grid-cols-2 md:grid-cols-4 gap-4 text-xs">
           <div>
             <span class="text-slate-500 font-medium">Problem Statement Partner:</span>
             <div class="font-bold text-slate-900 text-sm mt-0.5">PRIDE Cooperative Society Ltd.</div>
           </div>
           <div>
-            <span class="text-slate-500 font-medium">Grant Allocation Model:</span>
-            <div class="font-bold text-slate-900 text-sm mt-0.5">₹40.0 Lakhs (₹20.0L Tech Team)</div>
+            <span class="text-slate-500 font-medium">Regulatory Alignment:</span>
+            <div class="font-bold text-slate-900 text-sm mt-0.5">CPCB & ASPCB Form VI PWM</div>
           </div>
           <div>
             <span class="text-slate-500 font-medium">Target Municipalities:</span>
@@ -226,7 +244,6 @@
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
-          <!-- Pillar 1 -->
           <div class="white-card white-card-hover p-5 border-l-4 border-l-blue-600">
             <div class="w-10 h-10 rounded-xl bg-blue-100 text-blue-700 flex items-center justify-center text-lg mb-3">
               <i class="fa-solid fa-scale-balanced"></i>
@@ -237,7 +254,6 @@
             </p>
           </div>
 
-          <!-- Pillar 2 -->
           <div class="white-card white-card-hover p-5 border-l-4 border-l-teal-600">
             <div class="w-10 h-10 rounded-xl bg-teal-100 text-teal-700 flex items-center justify-center text-lg mb-3">
               <i class="fa-solid fa-route"></i>
@@ -248,7 +264,6 @@
             </p>
           </div>
 
-          <!-- Pillar 3 -->
           <div class="white-card white-card-hover p-5 border-l-4 border-l-amber-500">
             <div class="w-10 h-10 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center text-lg mb-3">
               <i class="fa-solid fa-language"></i>
@@ -259,7 +274,6 @@
             </p>
           </div>
 
-          <!-- Pillar 4 -->
           <div class="white-card white-card-hover p-5 border-l-4 border-l-purple-600">
             <div class="w-10 h-10 rounded-xl bg-purple-100 text-purple-700 flex items-center justify-center text-lg mb-3">
               <i class="fa-solid fa-stamp"></i>
@@ -300,52 +314,6 @@
         </div>
       </section>
 
-      <!-- PROBLEM VS SOLUTION COMPARISON MATRIX -->
-      <section class="white-card p-6 mb-8">
-        <h3 class="font-extrabold text-base text-slate-900 mb-4 flex items-center space-x-2">
-          <i class="fa-solid fa-table-list text-blue-600"></i>
-          <span>Status Quo vs. PRIDE WasteOS: The Definitive Comparative Advantage</span>
-        </h3>
-        <div class="overflow-x-auto">
-          <table class="w-full text-left text-xs">
-            <thead>
-              <tr class="bg-slate-100 text-slate-700 font-bold border-b border-slate-200">
-                <th class="p-3">Operational Dimension</th>
-                <th class="p-3 text-red-700 bg-red-50/50">Current Fragile Status Quo</th>
-                <th class="p-3 text-emerald-800 bg-emerald-50/50">PRIDE WasteOS Solution</th>
-                <th class="p-3">Evaluator Value Benchmark</th>
-              </tr>
-            </thead>
-            <tbody class="divide-y divide-slate-200 text-slate-700">
-              <tr>
-                <td class="p-3 font-semibold text-slate-900">Weighbridge Data Integrity</td>
-                <td class="p-3 text-red-600">Manual handwritten registers, prone to weight fraud and rounding deductions.</td>
-                <td class="p-3 text-emerald-700 font-medium">Universal RS-232 IoT sniffer captures gross/net directly from load-cells into cloud in &lt;3.5s.</td>
-                <td class="p-3 font-mono font-bold text-slate-900">Zero data tampering</td>
-              </tr>
-              <tr>
-                <td class="p-3 font-semibold text-slate-900">Fleet Logistics & Fuel Burn</td>
-                <td class="p-3 text-red-600">Static, erratic beats; electric three-wheelers stranded in flood-prone corridors.</td>
-                <td class="p-3 text-emerald-700 font-medium">Dynamic VRP routing factoring in terrain elevation and ASDMA monsoon waterlogging maps.</td>
-                <td class="p-3 font-mono font-bold text-teal-700">24.8% fuel savings</td>
-              </tr>
-              <tr>
-                <td class="p-3 font-semibold text-slate-900">Informal Collector Financials</td>
-                <td class="p-3 text-red-600">Middleman scrap dealer exploitation, delayed cash-only payments, zero social security.</td>
-                <td class="p-3 text-emerald-700 font-medium">Standardized cooperative rates, Assamese audio feedback, and direct bank/Aadhaar DBT settlement.</td>
-                <td class="p-3 font-mono font-bold text-emerald-700">+28.4% net income gain</td>
-              </tr>
-              <tr>
-                <td class="p-3 font-semibold text-slate-900">EPR Regulatory Compliance</td>
-                <td class="p-3 text-red-600">Paper manifests vulnerable to double-counting and rejection by CPCB/ASPCB.</td>
-                <td class="p-3 text-emerald-700 font-medium">End-to-end mass-balance ledger with cryptographic SHA-256 tokens and Form VI export.</td>
-                <td class="p-3 font-mono font-bold text-blue-700">100% auditable proof</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </section>
-
     </div>
 
     <!-- ======================================================== -->
@@ -353,7 +321,6 @@
     <!-- ======================================================== -->
     <div id="tab-gis" class="tab-pane hidden">
       <div class="grid grid-cols-1 lg:grid-cols-4 gap-5">
-        <!-- Interactive Map Container -->
         <div class="lg:col-span-3 white-card p-4 flex flex-col h-[580px]">
           <div class="flex flex-wrap items-center justify-between pb-3 mb-2 border-b border-slate-200 gap-2">
             <div class="flex items-center space-x-2">
@@ -367,7 +334,6 @@
               </button>
             </div>
           </div>
-          <!-- Leaflet Map Container -->
           <div id="gis-map" class="flex-1 rounded-xl overflow-hidden border border-slate-200 z-10"></div>
           <div class="mt-3 flex flex-wrap items-center justify-between text-xs text-slate-500 px-1 gap-2">
             <span class="flex items-center space-x-1.5">
@@ -381,7 +347,6 @@
           </div>
         </div>
 
-        <!-- Right Fleet & Telemetry Side Panel -->
         <div class="white-card p-4 flex flex-col h-[580px]">
           <div class="flex items-center justify-between pb-2 mb-3 border-b border-slate-200">
             <h3 class="font-bold text-xs uppercase tracking-wider text-slate-700">Active Fleet Telemetry</h3>
@@ -407,7 +372,6 @@
     <!-- ======================================================== -->
     <div id="tab-weighbridge" class="tab-pane hidden">
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-5">
-        <!-- Live Weighbridge Ingestion Hardware Simulator -->
         <div class="lg:col-span-2 white-card p-5">
           <div class="flex items-center justify-between pb-3 mb-4 border-b border-slate-200">
             <div class="flex items-center space-x-2.5">
@@ -442,7 +406,6 @@
                 <div class="text-4xl font-mono font-black text-teal-300 mt-1" id="display-net">470.0 <span class="text-sm font-normal text-teal-400">kg</span></div>
               </div>
             </div>
-            <!-- Raw Serial Terminal View -->
             <div class="mt-4 pt-3 border-t border-slate-800 flex items-center justify-between font-mono text-xs">
               <span class="text-slate-400">Raw RS-232 Stream:</span>
               <span class="text-emerald-400 bg-slate-950 px-2.5 py-1 rounded border border-slate-800" id="raw-serial-string">ST,GS,+01450.0kg,TR,+00980.0kg,NT,+00470.0kg\r\n</span>
@@ -479,7 +442,6 @@
             </div>
           </div>
 
-          <!-- Settlement Summary & Action Buttons -->
           <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <div>
               <span class="text-xs text-slate-500">Calculated Fair-Trade Cooperative Payout:</span>
@@ -499,7 +461,6 @@
           </div>
         </div>
 
-        <!-- AI Computer Vision Contamination Screening Column -->
         <div class="white-card p-5 flex flex-col justify-between">
           <div>
             <div class="flex items-center justify-between pb-3 mb-4 border-b border-slate-200">
@@ -507,7 +468,6 @@
               <span class="text-xs px-2 py-0.5 rounded bg-blue-100 text-blue-800 font-mono font-bold">Camera #02</span>
             </div>
 
-            <!-- Simulated Camera Feed -->
             <div class="w-full h-44 rounded-xl bg-slate-900 border border-slate-800 relative overflow-hidden flex items-center justify-center text-white">
               <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent z-10"></div>
               <div class="text-center p-4 z-20">
@@ -525,7 +485,6 @@
               </div>
             </div>
 
-            <!-- Metrics -->
             <div class="mt-4 space-y-2 text-xs">
               <div class="flex justify-between text-slate-700">
                 <span>Moisture Contamination:</span>
@@ -572,7 +531,6 @@
           </div>
         </div>
 
-        <!-- Workers Table -->
         <div class="overflow-x-auto">
           <table class="w-full text-left text-xs">
             <thead>
@@ -613,7 +571,6 @@
             </span>
           </div>
 
-          <!-- EPR Batches Table -->
           <div class="overflow-x-auto">
             <table class="w-full text-left text-xs">
               <thead>
@@ -633,7 +590,6 @@
           </div>
         </div>
 
-        <!-- EPR Summary & Mass-Balance Card -->
         <div class="white-card p-5 flex flex-col justify-between">
           <div>
             <h3 class="font-bold text-xs uppercase tracking-wider text-slate-700 pb-2 mb-3 border-b border-slate-200">Mass-Balance Accounting Balance</h3>
@@ -696,7 +652,7 @@
               <i class="fa-solid fa-clipboard-check text-amber-600"></i>
               <span>Official NESFIC Proposal Form Contents (Copy-Paste Hub)</span>
             </h2>
-            <p class="text-xs text-slate-500">All 12 required fields strictly under 500 words &bull; ₹40L Grant Budget (₹20L Technical Engineering Team) Included</p>
+            <p class="text-xs text-slate-500">All 12 required fields strictly under 500 words &bull; Official ₹40L Budget & Allocation Table Included</p>
           </div>
           <div class="flex items-center space-x-2">
             <button onclick="copyAllProposal()" class="px-3.5 py-1.5 rounded-lg bg-amber-100 hover:bg-amber-200 text-amber-900 border border-amber-300 text-xs font-bold flex items-center space-x-1.5 transition-all">
@@ -770,14 +726,271 @@
           </div>
         </div>
 
-        <!-- 12 Sections Accordion / Cards List -->
         <div class="space-y-4" id="proposal-sections-container">
           <!-- Dynamically populated via JS -->
         </div>
       </div>
     </div>
 
+    <!-- ======================================================== -->
+    <!-- TAB 6: ADMIN MANAGEMENT PANEL -->
+    <!-- ======================================================== -->
+    <div id="tab-admin" class="tab-pane hidden">
+      <div class="white-card p-6">
+        <!-- Admin Header -->
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-4 mb-6 border-b border-slate-200 gap-3">
+          <div>
+            <div class="flex items-center space-x-2">
+              <span class="w-8 h-8 rounded-lg bg-purple-100 text-purple-700 flex items-center justify-center font-bold text-sm">
+                <i class="fa-solid fa-sliders"></i>
+              </span>
+              <h2 class="font-extrabold text-lg text-slate-900">PRIDE Cooperative Master Administration Console</h2>
+            </div>
+            <p class="text-xs text-slate-500 mt-1">Authenticated as: <strong class="text-purple-700 font-mono">admin@pridecoop.in (Super Administrator)</strong> &bull; Role: Full RBAC Write Access</p>
+          </div>
+          <div class="flex items-center space-x-2">
+            <button onclick="handleAdminLogout()" class="px-3.5 py-1.5 rounded-lg bg-red-50 hover:bg-red-100 text-red-700 border border-red-200 text-xs font-bold flex items-center space-x-1.5 transition-all">
+              <i class="fa-solid fa-arrow-right-from-bracket"></i>
+              <span>Logout Admin</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <!-- Submodule 1: Material Price Master -->
+          <div class="p-5 rounded-xl bg-slate-50 border border-slate-200">
+            <h3 class="font-bold text-xs uppercase tracking-wider text-slate-800 pb-2 mb-3 border-b border-slate-200 flex items-center justify-between">
+              <span>1. Live Material Price Index (₹/kg)</span>
+              <i class="fa-solid fa-indian-rupee-sign text-teal-600"></i>
+            </h3>
+            <p class="text-[11px] text-slate-500 mb-3">Adjusting rates dynamically updates the public weighbridge calculator and worker DBT settlements.</p>
+
+            <form onsubmit="handleRateUpdate(event)" class="space-y-2.5 text-xs">
+              <div class="flex justify-between items-center">
+                <label class="font-medium text-slate-700">Rigid PET Bottles:</label>
+                <input type="number" step="0.5" id="adm-rate-pet" value="26.0" class="w-24 bg-white border border-slate-300 rounded px-2 py-1 font-mono font-bold text-slate-800 text-right">
+              </div>
+              <div class="flex justify-between items-center">
+                <label class="font-medium text-slate-700">HDPE Containers:</label>
+                <input type="number" step="0.5" id="adm-rate-hdpe" value="32.0" class="w-24 bg-white border border-slate-300 rounded px-2 py-1 font-mono font-bold text-slate-800 text-right">
+              </div>
+              <div class="flex justify-between items-center">
+                <label class="font-medium text-slate-700">Corrugated Cardboard:</label>
+                <input type="number" step="0.5" id="adm-rate-card" value="14.0" class="w-24 bg-white border border-slate-300 rounded px-2 py-1 font-mono font-bold text-slate-800 text-right">
+              </div>
+              <div class="flex justify-between items-center">
+                <label class="font-medium text-slate-700">Multilayered Plastics (MLP):</label>
+                <input type="number" step="0.5" id="adm-rate-mlp" value="8.5" class="w-24 bg-white border border-slate-300 rounded px-2 py-1 font-mono font-bold text-slate-800 text-right">
+              </div>
+              <div class="flex justify-between items-center">
+                <label class="font-medium text-slate-700">Aluminium & Metals:</label>
+                <input type="number" step="0.5" id="adm-rate-metal" value="42.0" class="w-24 bg-white border border-slate-300 rounded px-2 py-1 font-mono font-bold text-slate-800 text-right">
+              </div>
+
+              <div class="pt-2">
+                <button type="submit" class="w-full py-2 bg-teal-700 hover:bg-teal-800 text-white rounded-lg font-bold text-xs shadow-xs transition-all flex items-center justify-center space-x-1.5">
+                  <i class="fa-solid fa-floppy-disk"></i>
+                  <span>Broadcast New Rates</span>
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <!-- Submodule 2: Scale IoT Calibration -->
+          <div class="p-5 rounded-xl bg-slate-50 border border-slate-200">
+            <h3 class="font-bold text-xs uppercase tracking-wider text-slate-800 pb-2 mb-3 border-b border-slate-200 flex items-center justify-between">
+              <span>2. Scale IoT Sniffer Calibration</span>
+              <i class="fa-solid fa-microchip text-blue-600"></i>
+            </h3>
+            <p class="text-[11px] text-slate-500 mb-3">RS-232 / RS-485 serial hardware settings for Boragaon MRF Avery scale tap.</p>
+
+            <div class="space-y-2.5 text-xs">
+              <div>
+                <label class="block text-slate-600 mb-1">Serial COM Port:</label>
+                <select id="adm-scale-port" class="w-full bg-white border border-slate-300 rounded px-2 py-1.5 font-mono text-slate-800">
+                  <option value="COM1">COM1 - Avery India 60T (Industrial Scale #1)</option>
+                  <option value="COM2">COM2 - Essae 30T Platform (Secondary Station)</option>
+                  <option value="USB0">/dev/ttyUSB0 - Eagle Electronic Indicator</option>
+                </select>
+              </div>
+              <div class="grid grid-cols-2 gap-2">
+                <div>
+                  <label class="block text-slate-600 mb-1">Baud Rate:</label>
+                  <select id="adm-scale-baud" class="w-full bg-white border border-slate-300 rounded px-2 py-1.5 font-mono text-slate-800">
+                    <option value="9600">9600 8N1 (Default)</option>
+                    <option value="19200">19200 8N1</option>
+                    <option value="115200">115200 8N1</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="block text-slate-600 mb-1">Default Tare (kg):</label>
+                  <input type="number" id="adm-scale-tare" value="980" class="w-full bg-white border border-slate-300 rounded px-2 py-1.5 font-mono font-bold text-slate-800">
+                </div>
+              </div>
+
+              <!-- Raw Packet Stream Monitor -->
+              <div>
+                <label class="block text-slate-600 mb-1">Live Ingestion Stream Monitor:</label>
+                <div class="p-2 rounded bg-slate-900 text-emerald-400 font-mono text-[10px] h-20 overflow-y-auto leading-tight border border-slate-800">
+                  <div>[03:22:01] ST,GS,+01450.0kg,TR,+00980.0kg,NT,+00470.0kg</div>
+                  <div>[03:22:04] PARSER: Lock-on verified (CRC32: 0x9A4B)</div>
+                  <div>[03:22:07] MQTT: Packet published to /assam/mrf/boragaon</div>
+                  <div>[03:22:10] ST,GS,+01290.0kg,TR,+00980.0kg,NT,+00310.0kg</div>
+                </div>
+              </div>
+
+              <button onclick="testScaleConnection()" class="w-full py-1.5 bg-blue-700 hover:bg-blue-800 text-white rounded-lg font-bold text-xs transition-all">
+                Test Serial Loopback Ping
+              </button>
+            </div>
+          </div>
+
+          <!-- Submodule 3: Real-Time Audit Log & Security -->
+          <div class="p-5 rounded-xl bg-slate-50 border border-slate-200 flex flex-col justify-between">
+            <div>
+              <h3 class="font-bold text-xs uppercase tracking-wider text-slate-800 pb-2 mb-3 border-b border-slate-200 flex items-center justify-between">
+                <span>3. Live System Audit Logs</span>
+                <i class="fa-solid fa-clock-rotate-left text-purple-600"></i>
+              </h3>
+              <p class="text-[11px] text-slate-500 mb-2">Immutable event trail with SHA-256 tokens for CPCB/ASPCB compliance.</p>
+
+              <div class="space-y-2 max-h-56 overflow-y-auto pr-1" id="adm-audit-list">
+                <!-- Dynamically populated via JS -->
+              </div>
+            </div>
+
+            <button onclick="exportAuditTrailCSV()" class="mt-4 w-full py-2 bg-slate-800 hover:bg-slate-900 text-white rounded-lg text-xs font-bold flex items-center justify-center space-x-1.5">
+              <i class="fa-solid fa-file-csv"></i>
+              <span>Export Audit Ledger (CSV)</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Fleet Status Manager -->
+        <div class="mt-6 pt-5 border-t border-slate-200">
+          <h3 class="font-bold text-xs uppercase tracking-wider text-slate-800 mb-3 flex items-center space-x-2">
+            <i class="fa-solid fa-truck text-teal-600"></i>
+            <span>PRIDE Bahan Fleet Dispatch & Maintenance Roster</span>
+          </h3>
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs">
+              <thead>
+                <tr class="bg-slate-100 text-slate-700 font-bold border-b border-slate-200">
+                  <th class="p-2.5">Vehicle Reg.</th>
+                  <th class="p-2.5">Driver / Member</th>
+                  <th class="p-2.5">Beat / Ward</th>
+                  <th class="p-2.5">Battery</th>
+                  <th class="p-2.5">Status</th>
+                  <th class="p-2.5 text-right">Quick Action</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-200 text-slate-700" id="adm-fleet-table">
+                <!-- Dynamically populated via JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </main>
+
+  <!-- ======================================================== -->
+  <!-- MODAL 1: INTERACTIVE TUTORIAL & PLATFORM GUIDE -->
+  <!-- ======================================================== -->
+  <div id="tutorial-modal" class="fixed inset-0 bg-black/60 backdrop-blur-xs z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white text-slate-900 rounded-2xl max-w-2xl w-full p-6 shadow-2xl relative border border-slate-200 flex flex-col max-h-[90vh]">
+      <button onclick="closeTutorialModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-800 text-lg">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <!-- Tutorial Header -->
+      <div class="pb-3 border-b border-slate-200">
+        <div class="flex items-center space-x-2">
+          <span class="w-8 h-8 rounded-lg bg-teal-100 text-teal-800 flex items-center justify-center text-sm font-bold">
+            <i class="fa-solid fa-book-open"></i>
+          </span>
+          <div>
+            <h3 class="font-extrabold text-base text-slate-900">PRIDE WasteOS &bull; Interactive Platform Guide</h3>
+            <p class="text-xs text-slate-500">Learn what the platform does, how it works, and how to operate each module.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tutorial Body (Dynamic Slide Content) -->
+      <div class="py-5 overflow-y-auto flex-1 pr-1" id="tutorial-slide-content">
+        <!-- Injected via JS -->
+      </div>
+
+      <!-- Tutorial Footer Controls -->
+      <div class="pt-4 border-t border-slate-200 flex items-center justify-between">
+        <div class="flex items-center space-x-1.5" id="tutorial-dots">
+          <!-- Slide dots injected via JS -->
+        </div>
+
+        <div class="flex space-x-2">
+          <button onclick="prevTutorialStep()" id="btn-tut-prev" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg text-xs font-bold transition-all disabled:opacity-40">
+            Previous
+          </button>
+          <button onclick="nextTutorialStep()" id="btn-tut-next" class="px-5 py-2 bg-teal-700 hover:bg-teal-800 text-white rounded-lg text-xs font-bold transition-all shadow-xs">
+            Next Step
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- MODAL 2: ADMIN LOGIN MODAL WITH DEMO CREDENTIALS -->
+  <!-- ======================================================== -->
+  <div id="admin-login-modal" class="fixed inset-0 bg-black/60 backdrop-blur-xs z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white border border-slate-200 text-slate-900 rounded-2xl max-w-sm w-full p-6 shadow-2xl relative">
+      <button onclick="closeAdminLoginModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-800 text-lg">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <div class="text-center mb-4">
+        <div class="w-12 h-12 rounded-2xl bg-purple-100 text-purple-700 flex items-center justify-center mx-auto text-xl mb-2 font-bold shadow-xs">
+          <i class="fa-solid fa-lock"></i>
+        </div>
+        <h3 class="font-extrabold text-base text-slate-900">Administrator Console Login</h3>
+        <p class="text-xs text-slate-500">PRIDE Cooperative & GMC Municipal Authority</p>
+      </div>
+
+      <!-- Demo Credentials Highlight Card -->
+      <div class="p-3.5 rounded-xl bg-purple-50/80 border border-purple-200 mb-4 text-xs">
+        <div class="flex items-center justify-between mb-1.5">
+          <span class="font-bold text-purple-900 uppercase text-[10px] tracking-wider">Demo Access Credentials</span>
+          <span class="px-1.5 py-0.5 rounded bg-purple-200 text-purple-800 font-mono text-[10px]">Evaluator Ready</span>
+        </div>
+        <div class="space-y-1 font-mono text-[11px] text-slate-700">
+          <div>User: <strong class="text-purple-900">admin@pridecoop.in</strong></div>
+          <div>Pass: <strong class="text-purple-900">pride@assam2026</strong></div>
+        </div>
+        <button onclick="fillDemoCredentials()" class="mt-2.5 w-full py-1.5 bg-purple-700 hover:bg-purple-800 text-white rounded-lg text-xs font-bold transition-all shadow-xs flex items-center justify-center space-x-1.5">
+          <i class="fa-solid fa-wand-magic-sparkles"></i>
+          <span>1-Click Fill & Login Demo</span>
+        </button>
+      </div>
+
+      <!-- Login Form -->
+      <form onsubmit="handleAdminLoginSubmit(event)" class="space-y-3 text-xs">
+        <div>
+          <label class="block text-slate-700 font-semibold mb-1">Username / Email</label>
+          <input type="text" id="adm-user-input" value="admin@pridecoop.in" required class="w-full bg-slate-50 border border-slate-300 rounded-lg px-3 py-2 text-slate-900 focus:outline-none focus:border-purple-600">
+        </div>
+        <div>
+          <label class="block text-slate-700 font-semibold mb-1">Password</label>
+          <input type="password" id="adm-pass-input" value="pride@assam2026" required class="w-full bg-slate-50 border border-slate-300 rounded-lg px-3 py-2 text-slate-900 focus:outline-none focus:border-purple-600">
+        </div>
+        <div class="pt-2">
+          <button type="submit" class="w-full py-2.5 bg-slate-900 hover:bg-slate-800 text-white rounded-lg font-bold transition-all">
+            Authenticate & Access Console
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
 
   <!-- RECEIPT MODAL -->
   <div id="receipt-modal" class="fixed inset-0 bg-black/60 backdrop-blur-xs z-50 hidden flex items-center justify-center p-4">
@@ -930,7 +1143,7 @@
     </div>
   </div>
 
-  <!-- FOOTER -->
+  <!-- FOOTER (Clean - No Grant Numbers) -->
   <footer class="bg-white border-t border-slate-200 py-6 mt-auto">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-3">
       <div>
@@ -938,8 +1151,7 @@
       </div>
       <div class="flex items-center space-x-4">
         <span>Problem Statement: <strong class="text-slate-700">NESFIC-I-10</strong></span>
-        <span>Grant: <strong class="text-teal-700 font-bold">₹40.00 Lakhs</strong></span>
-        <span>Tech Team: <strong class="text-blue-700 font-bold">₹20.00 Lakhs</strong></span>
+        <span>Domain: <strong class="text-teal-700 font-bold">Circular Economy & GIS Telemetry</strong></span>
       </div>
     </div>
   </footer>

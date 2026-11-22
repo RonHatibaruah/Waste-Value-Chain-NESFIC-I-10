@@ -216,6 +216,13 @@ def build_pdf():
         story.append(img)
         story.append(Spacer(1, 8))
 
+    
+    if os.path.exists("assets/admin_rbac_architecture.png"):
+        story.append(Paragraph("Role-Based Access Control (RBAC) & Governance Matrix:", h2_style))
+        img_rbac = Image("assets/admin_rbac_architecture.png", width=6.8*inch, height=3.1*inch)
+        story.append(img_rbac)
+        story.append(Spacer(1, 8))
+
     story.append(Paragraph("2. End-to-End Value Chain Flow & Verified Chain of Custody", h1_style))
     story.append(Paragraph(
         "The platform establishes a transparent, continuous digital chain-of-custody across the four primary stages of Assam's municipal waste lifecycle, converting informal scavenging into an auditable green logistics network.",
@@ -286,6 +293,13 @@ def build_pdf():
     # SECTION 5: GUWAHATI FLOOD ROUTING & VRP
     # ---------------------------------------------------------
     story.append(PageBreak())
+    
+    if os.path.exists("assets/dbt_financial_pipeline.png"):
+        story.append(Paragraph("Direct Benefit Transfer (DBT) & Automated Worker Settlement Flow:", h2_style))
+        img_dbt = Image("assets/dbt_financial_pipeline.png", width=6.8*inch, height=2.9*inch)
+        story.append(img_dbt)
+        story.append(Spacer(1, 8))
+
     story.append(Paragraph("5. Guwahati Geospatial Terrain & Flood-Adaptive Dynamic Routing", h1_style))
     story.append(Paragraph(
         "Guwahati's unique topography presents steep elevation variations and acute monsoon waterlogging along arterial corridors. Our Vehicle Routing Problem (VRP) engine integrates ASDMA flood inundation vectors to dynamically divert PRIDE Bahan electric three-wheelers.",
@@ -312,6 +326,13 @@ def build_pdf():
     # SECTION 7: PILOT BENCHMARK METRICS
     # ---------------------------------------------------------
     story.append(PageBreak())
+    
+    if os.path.exists("assets/cv_conveyor_inspection.png"):
+        story.append(Paragraph("Edge Computer Vision (YOLOv8) Conveyor Purity Screening HUD:", h2_style))
+        img_cv = Image("assets/cv_conveyor_inspection.png", width=6.8*inch, height=3.1*inch)
+        story.append(img_cv)
+        story.append(Spacer(1, 8))
+
     story.append(Paragraph("7. Field Validation Metrics & Preliminary Pilot Benchmarks", h1_style))
     story.append(Paragraph(
         "Empirical benchmarks obtained from preliminary trials across Kamrup Metro demonstrate transformative operational and economic efficiencies versus traditional unorganized scrap aggregation.",
