@@ -364,7 +364,7 @@ def build_pdf():
 
     story.append(Paragraph("Key Validated Outcomes from Pilot Testbed:", h2_style))
     story.append(Paragraph("1. <b>Fleet Logistics Optimization:</b> Dynamic VRP algorithms reduced fuel consumption by 24.8% across four pilot wards in Guwahati (Paltan Bazar, Fancy Bazar, Dispur, Jalukbari).", bullet_style))
-    story.append(Paragraph("2. <b>Throughput Velocity:</b> Automated IoT weighbridge capture reduced intake turnaround time from 180 seconds (manual register) to 3.2 seconds (<3.5s target achieved).", bullet_style))
+    story.append(Paragraph("2. <b>Throughput Velocity:</b> Automated IoT weighbridge capture reduced intake turnaround time from 180 seconds (manual register) to 3.2 seconds (Smaller than 3.5s target achieved).", bullet_style))
     story.append(Paragraph("3. <b>Offline Queue Resilience:</b> 100% data fidelity preserved during simulated cellular network blackouts ranging from 1 to 8 hours.", bullet_style))
     story.append(Paragraph("4. <b>Worker Income Enhancement:</b> Automated fair-trade price indexing and direct payment credits increased waste collectors' net realized income by 28.4% by eliminating middlemen cuts.", bullet_style))
     story.append(Spacer(1, 10))
@@ -424,10 +424,10 @@ def build_pdf():
 
     roadmap_data = [
         [Paragraph("<b>Phase & Timeline</b>", table_hdr_style), Paragraph("<b>Key Milestone Deliverables</b>", table_hdr_style), Paragraph("<b>Validation Gate</b>", table_hdr_style)],
-        [Paragraph("Phase 1: Inception & Prototyping (M1-M2 / W1-W8)", table_cell_style), Paragraph("SRS sign-off; universal RS-232 IoT weighbridge bridge bench prototype; field process mapping across PRIDE facilities in Guwahati.", table_cell_style), Paragraph("Milestone M2: HIL hardware bench validation (>99% accuracy)", table_cell_style)],
+        [Paragraph("Phase 1: Inception & Prototyping (M1-M2 / W1-W8)", table_cell_style), Paragraph("SRS sign-off; universal RS-232 IoT weighbridge bridge bench prototype; field process mapping across PRIDE facilities in Guwahati.", table_cell_style), Paragraph("Milestone M2: HIL hardware bench validation (Greater Than 99% accuracy)", table_cell_style)],
         [Paragraph("Phase 2: Core Platform & PWA MVP (M3-M4 / W9-W16)", table_cell_style), Paragraph("Offline-first PWA with Assamese voice synthesis; cloud ingestion microservices; fleet GPS dispatch module; automated weighment slip generation.", table_cell_style), Paragraph("Milestone M4: Platform MVP v0.5 release ready for closed bench tests", table_cell_style)],
-        [Paragraph("Phase 3: AI & EPR Ledger (M5-M6 / W17-W24)", table_cell_style), Paragraph("YOLOv8 plastic contamination model (mAP >85%); B2B inventory module; CPCB-compliant automated mass-balance EPR certificate engine.", table_cell_style), Paragraph("Milestone M6: Integrated Beta v0.8 ready for live field pilot", table_cell_style)],
-        [Paragraph("Phase 4: Field Pilot & Operations (M7-M8 / W25-W32)", table_cell_style), Paragraph("Live deployment across 2 PRIDE MRFs, 15 PRIDE Bahan vehicles, and 200+ safai sathis in Kamrup Metro; real-time operational KPI tracking.", table_cell_style), Paragraph("Milestone M8: Mid-pilot evaluation (>20% fuel savings verified)", table_cell_style)],
+        [Paragraph("Phase 3: AI & EPR Ledger (M5-M6 / W17-W24)", table_cell_style), Paragraph("YOLOv8 plastic contamination model (mAP Greater Than 85%); B2B inventory module; CPCB-compliant automated mass-balance EPR certificate engine.", table_cell_style), Paragraph("Milestone M6: Integrated Beta v0.8 ready for live field pilot", table_cell_style)],
+        [Paragraph("Phase 4: Field Pilot & Operations (M7-M8 / W25-W32)", table_cell_style), Paragraph("Live deployment across 2 PRIDE MRFs, 15 PRIDE Bahan vehicles, and 200+ safai sathis in Kamrup Metro; real-time operational KPI tracking.", table_cell_style), Paragraph("Milestone M8: Mid-pilot evaluation (Greater Than 20% fuel savings verified)", table_cell_style)],
         [Paragraph("Phase 5: Security & Commissioning (M9-M10 / W33-W40)", table_cell_style), Paragraph("CERT-In empanelled VAPT cybersecurity clearance; DPDP compliance verification; source code handover and PRIDE administrator training.", table_cell_style), Paragraph("Milestone M10: Production Release v1.0 & final handover", table_cell_style)],
     ]
     roadmap_table = Table(roadmap_data, colWidths=[110, 240, 154])

@@ -345,6 +345,16 @@ Contextual Pilot Validation Plan:
 The solution will be validated directly in partnership with PRIDE Cooperative across Kamrup Metropolitan (Guwahati) and Nalbari. The 90-day field pilot will deploy 15 instrumented PRIDE Bahan vehicles and 2 operational MRFs, tracking over 150 daily collection runs and onboarding 200+ waste workers. Validation success criteria require: (a) 100% automated weighbridge data capture with zero manual overrides, (b) minimum 20% verified reduction in fleet fuel consumption, and (c) issuance of 50+ tons of CPCB-auditable digital EPR credits."""
 }
 
+# Sanitize all sections: remove < and > markup characters and replace with "Smaller than" and "Greater Than"
+for key in sections:
+    # First handle spacing and replacement
+    text = sections[key]
+    text = text.replace("< ", "Smaller than ").replace("<", "Smaller than ")
+    text = text.replace("> ", "Greater Than ").replace(">", "Greater Than ")
+    # Clean any double spaces created
+    text = re.sub(r' +', ' ', text)
+    sections[key] = text
+
 print("================ WORD COUNT VERIFICATION ================")
 all_under_500 = True
 for title, text in sections.items():
